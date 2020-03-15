@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StageButton';
 
+import { usePlayer } from '../hooks/usePlayer';
+import { useStage } from '../hooks/useStage';
+
 import { StyleTetrisWrapper, StyledTetris } from './styles/StyledTetris';
 
-import { createStage } from '../gameHalper';
-
 const Tetris = () => {
-  console.log(createStage());
+  const [dropTime, setDropTime] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+
+  const [player] = usePlayer();
+  const [stage, setStage] = useStage(player);
+
+  console.log('re-render');
 
   return (
     <StyleTetrisWrapper>
       <StyledTetris>
-        <Stage stage={createStage()} />
+        <Stage stage={stage} />
         <aside>
-          <Display text="Score" />
-          <Display text="Rows" />
-          <Display text="Level" />
+          {gameOver ? (
+            <Display gameOver={gameOver} text="Game over" />
+          ) : (
+            <>
+              <Display text="Score" />
+              <Display text="Rows" />
+              <Display text="Level" />
+            </>
+          )}
+
           <StartButton />
         </aside>
       </StyledTetris>
