@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
 
-import { randomTetrominos } from '../tetrominos';
+import { TETROMINOS, randomTetrominos } from '../tetrominos';
 import { STAGE_WIDTH } from '../gameHalper';
 
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
-    tetromino: randomTetrominos().shape,
+    tetromino: TETROMINOS[0].shape,
     collided: false,
   });
 
